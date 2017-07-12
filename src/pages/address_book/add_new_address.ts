@@ -1,7 +1,7 @@
 import {Component} from '@angular/core';
 import {BarcodeScanner} from '@ionic-native/barcode-scanner';
 
-import {NavController, LoadingController, NavParams} from 'ionic-angular';
+import {NavController, NavParams, ViewController} from 'ionic-angular';
 import {TranslateService} from '@ngx-translate/core';
 
 import {NemProvider} from '../../providers/nem/nem.provider';
@@ -20,7 +20,8 @@ export class AddNewAddressPage {
     name : string
     address : string
 
-    constructor(public navCtrl: NavController,  private nem: NemProvider, private alert: AlertProvider, private config: ConfigProvider, public translate: TranslateService, private addressBook: AddressBookProvider, private navParams: NavParams, private barcodeScanner: BarcodeScanner) {
+    constructor(public navCtrl: NavController,  private nem: NemProvider, private alert: AlertProvider, private config: ConfigProvider, public translate: TranslateService, private addressBook: AddressBookProvider, private navParams: NavParams, private barcodeScanner: BarcodeScanner, private viewCtrl: ViewController
+    ) {
        this.account =  navParams.get('account');
     }
 
@@ -41,12 +42,21 @@ export class AddNewAddressPage {
     /**
      * Scans Account QR and sets account into this.formData.rawRecipient
      */
-    public scanQR() {
+    scanQR() {
         this.barcodeScanner.scan().then((barcodeData) => {
             var addresObject = JSON.parse(barcodeData.text);
             this.address = addresObject.data.addr;
         }, (err) => {
             console.log("Error on scan");
         });
+    }
+
+
+    /**
+     * Closes View
+     */
+
+    dismiss() {
+        this.viewCtrl.dismiss();
     }
 }

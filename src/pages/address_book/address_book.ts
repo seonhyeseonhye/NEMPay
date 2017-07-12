@@ -1,11 +1,12 @@
 import {Component} from '@angular/core';
 
-import {NavController, LoadingController} from 'ionic-angular';
+import {NavController} from 'ionic-angular';
+import {ModalController} from 'ionic-angular';
+
 import {TranslateService} from '@ngx-translate/core';
 
 import {ConfigProvider} from '../../providers/config/config.provider';
 import {NemProvider} from '../../providers/nem/nem.provider';
-import {AlertProvider} from '../../providers/alert/alert.provider';
 import {AddressBookProvider} from '../../providers/address_book/address_book.provider';
 
 import {LoginPage} from '../login/login';
@@ -20,7 +21,7 @@ export class AddressBookPage {
 
     storedAddresses : any
     account: string
-    constructor(public navCtrl: NavController, private nem: NemProvider, private loading: LoadingController, private config: ConfigProvider, public translate: TranslateService, private alert: AlertProvider, private addressBook: AddressBookProvider) {
+    constructor(public navCtrl: NavController, private nem: NemProvider, private config: ConfigProvider, public translate: TranslateService, private addressBook: AddressBookProvider, private modalCtrl: ModalController) {
 
     }
 
@@ -71,9 +72,11 @@ export class AddressBookPage {
      * Moves to add New Address
      */
     goToAddNewAddress(){
-        this.navCtrl.push(AddNewAddressPage, {
+        let modal = this.modalCtrl.create(AddNewAddressPage, {
             account: this.account,
         });
+        modal.present();
 
     }
+
 }

@@ -1,13 +1,16 @@
 <ion-header>
-    <ion-navbar color="primary">
-        <button ion-button menuToggle>
-            <ion-icon name="menu"></ion-icon>
-        </button>
+    <ion-toolbar>
         <ion-title>
-            {{'ADD_NEW_ADDRESS' | translate}}
+            Description
         </ion-title>
-    </ion-navbar>
+        <ion-buttons start>
+            <button ion-button (click)="dismiss()">
+                <span ion-text color="primary"> {{'ADD_NEW_ADDRESS' | translate}}</span>
+            </button>
+        </ion-buttons>
+    </ion-toolbar>
 </ion-header>
+
 <ion-content padding id="transfer">
     <ion-row>
         <ion-col>
