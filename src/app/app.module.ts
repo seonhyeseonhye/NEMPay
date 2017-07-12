@@ -20,6 +20,7 @@ import {AlertProvider} from '../providers/alert/alert.provider';
 import {ConfigProvider} from '../providers/config/config.provider';
 import {ToastProvider} from '../providers/toast/toast.provider';
 import {NemProvider} from '../providers/nem/nem.provider';
+import {AddressBookProvider} from '../providers/address_book/address_book.provider';
 
 
 import {DivideByExponentialBaseTenPipe} from '../pipes/divide-by-exponential-base-ten.pipe';
@@ -39,6 +40,7 @@ import {LoginPage} from '../pages/login/login';
 import {SignupPage} from '../pages/signup/signup';
 import {SignupSimpleWalletPage} from '../pages/signup_simplewallet/signup';
 import {SignupPrivateKeyPage} from '../pages/signup_privatekey/signup';
+import {AddressBookPage} from '../pages/address_book/address_book';
 
 export function createTranslateLoader(http: Http) {
     return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -57,6 +59,7 @@ export function createTranslateLoader(http: Http) {
         SignupPrivateKeyPage,
         TransactionsConfirmedPage,
         TransactionsUnconfirmedPage,
+        AddressBookPage,
         DivideByExponentialBaseTenPipe,
         HexMessageToStringPipe,
         PubToAddressPipe,
@@ -93,6 +96,7 @@ export function createTranslateLoader(http: Http) {
         SignupPage,
         SignupSimpleWalletPage,
         SignupPrivateKeyPage,
+        AddressBookPage
     ],
     providers: [
         StatusBar,
@@ -108,6 +112,7 @@ export function createTranslateLoader(http: Http) {
         ConfigProvider,
         AlertProvider,
         ToastProvider,
+        AddressBookProvider
     ]
 })
 export class AppModule {

@@ -12,7 +12,7 @@ import CryptoJS from 'crypto-js';
  for more info on providers and Angular DI.
  */
 @Injectable()
-export class NemProvider {
+export class AddressBookProvider {
     private database: SQLiteObject;
 
     constructor(private sqlite: SQLite) {
