@@ -1,0 +1,38 @@
+<ion-header>
+    <ion-navbar color="primary">
+        <button ion-button menuToggle>
+            <ion-icon name="menu"></ion-icon>
+        </button>
+        <ion-title>
+            {{'ADD_NEW_ADDRESS' | translate}}
+        </ion-title>
+    </ion-navbar>
+</ion-header>
+<ion-content padding id="transfer">
+    <ion-row>
+        <ion-col>
+    <span style="float:right" on-click="scanQR()">
+        <ion-icon name="qr-scanner"></ion-icon> {{'SCAN_QR' | translate}}
+    </span>
+        </ion-col>
+    </ion-row>
+    <form (ngSubmit)="addAddressToBook()">
+        <ion-item id="transfer-input1">
+            <ion-label stacked>
+                {{'NAME' | translate}}
+            </ion-label>
+            <ion-input type="text" name="name" placeholder="" [(ngModel)]="name"></ion-input>
+        </ion-item>
+        <ion-item>
+            <ion-label>
+                {{'ADDRESS' | translate}}
+            </ion-label>
+            <ion-input type="text" name="address" [(ngModel)]="address" placeholder=""></ion-input>
+        </ion-item>
+        <div class="spacer" style="height:10px;"></div>
+
+        <button ion-button color="positive" block [disabled]="!name || !address">
+            {{'SAVE' | translate}}
+        </button>
+    </form>
+</ion-content>

@@ -6,9 +6,11 @@ import {TranslateService} from '@ngx-translate/core';
 import {ConfigProvider} from '../../providers/config/config.provider';
 import {NemProvider} from '../../providers/nem/nem.provider';
 import {AlertProvider} from '../../providers/alert/alert.provider';
+import {AddressBookProvider} from '../../providers/address_book/address_book.provider';
 
-import {TransferPage} from '../transfer/transfer';
 import {LoginPage} from '../login/login';
+import {AddNewAddressPage} from '../address_book/add_new_address';
+
 
 @Component({
     selector: 'page-address_book',
@@ -16,62 +18,62 @@ import {LoginPage} from '../login/login';
 })
 export class AddressBookPage {
 
-    constructor(public navCtrl: NavController, private nem: NemProvider, private loading: LoadingController, private config: ConfigProvider, public translate: TranslateService, private alert: AlertProvider) {
-
+    storedAddresses : any
+    account: string
+    constructor(public navCtrl: NavController, private nem: NemProvider, private loading: LoadingController, private config: ConfigProvider, public translate: TranslateService, private alert: AlertProvider, private addressBook: AddressBookProvider) {
 
     }
 
-
     /**
-     * Retrieves current account stored addresses in addres book
+     * Init view with the agenda
+     * @param transaction  transaction object
      */
-    public getBalance() {
-
+    ionViewWillEnter() {
         this.nem.getSelectedWallet().then(
             value => {
-
                 if (!value) {
-                    if (refresher) refresher.complete();
                     this.navCtrl.setRoot(LoginPage);
                 }
                 else {
-
-                    let loader = this.loading.create({
-                        content: "Please wait..."
-                    });
-
-                    if (!refresher) loader.present();
-
-                    this.nem.getBalance(value.accounts[0].address, this.config.defaultNetwork()).then(
-                        value => {
-                            this.balance = value.data;
-                            console.log(this.balance);
-                            if (refresher) {
-                                refresher.complete();
-                            }
-                            else{
-                                loader.dismiss();
-                            }
-                        })
+                    this.storedAddresses =  [];
+                    this.account = value.accounts[0].address;
+                    this._getStoredAddresses(this.account);
                 }
             }
         )
     }
 
+    /**
+     * Retrieves current account stored addresses in addres book
+     * @param account address of the account to retrieve it's address book
+     */
+    private _getStoredAddresses(account) {
+        return this.addressBook.getAddresses(account).then(data => {
+            this.storedAddresses =  data;
+            return data;
+        })
+    }
 
     /**
-     * Moves to transfer, by default with mosaic selected
+     *  Delete Address
+     * @param Id of the address to remove from address book
      */
-    goToTransfer(){
-        if(this._checkIfSelectedMosaicIsTransferable(this.selectedMosaic)){
-            this.navCtrl.push(TransferPage, {
-                selectedMosaic: this.selectedMosaic.mosaicId.namespaceId + ':' + this.selectedMosaic.mosaicId.name,
-                quantity: this.selectedMosaic.quantity,
-            });
-        }
-        else{
-            this.alert.showMosaicNotTransferable();
-        }
+
+    public deleteAddress(id) {
+        return this.addressBook.deleteAddress(id).then(_ => {
+            this._getStoredAddresses(this.account);
+        })
+
+    }
+
+
+    /**
+     * Moves to add New Address
+     */
+    goToAddNewAddress(){
+        this.navCtrl.push(AddNewAddressPage, {
+            account: this.account,
+        });
 
     }
 }

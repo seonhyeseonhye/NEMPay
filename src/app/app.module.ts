@@ -41,6 +41,7 @@ import {SignupPage} from '../pages/signup/signup';
 import {SignupSimpleWalletPage} from '../pages/signup_simplewallet/signup';
 import {SignupPrivateKeyPage} from '../pages/signup_privatekey/signup';
 import {AddressBookPage} from '../pages/address_book/address_book';
+import {AddNewAddressPage} from '../pages/address_book/add_new_address';
 
 export function createTranslateLoader(http: Http) {
     return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -96,7 +97,8 @@ export function createTranslateLoader(http: Http) {
         SignupPage,
         SignupSimpleWalletPage,
         SignupPrivateKeyPage,
-        AddressBookPage
+        AddressBookPage,
+        AddNewAddressPage
     ],
     providers: [
         StatusBar,

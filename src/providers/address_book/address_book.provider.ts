@@ -31,7 +31,7 @@ export class AddressBookProvider {
      * @return address address of the account to be stored
      */
 
-    public newAddress(account, name, address) {
+    public addAddress(account, name, address) {
         return this.database.executeSql('INSERT INTO address_book VALUES ('+account+','+name+','+address+')', {}).then((data) => {
             return data;
         });

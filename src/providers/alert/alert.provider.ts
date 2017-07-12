@@ -116,7 +116,6 @@ export class AlertProvider {
         return alert;
     }
 
-
     showInvalidPrivateKey() {
         let alert = this.alertCtrl.create({
             title: 'Invalid Private Key',
@@ -125,6 +124,7 @@ export class AlertProvider {
         alert.present();
         return alert;
     }
+
 
     showError(error) {
         let alert = this.alertCtrl.create({
