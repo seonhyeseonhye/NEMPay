@@ -1,0 +1,35 @@
+<ion-header>
+    <ion-navbar color="primary" hideBackButton="true">
+        <button ion-button menuToggle style="display:block !important;">
+            <ion-icon name="menu"></ion-icon>
+        </button>
+        <ion-title>
+            {{'ADDRESS_BOOK' | translate}}
+        </ion-title>
+    </ion-navbar>
+</ion-header>
+<ion-content padding id="address-book">
+
+
+
+        <ion-list>
+            <ion-item *ngFor="let storedAddress of storedAddresses">
+                <ion-label>
+                    <b>{{storedAddress.name}}</b>
+                    <b>{{storedAddress.address}}</b>
+                </ion-label>
+            </ion-item>
+        </ion-list>
+
+</ion-content>
+
+
+
+<ion-footer no-shadow>
+    <ion-toolbar position="bottom" class="background-white">
+        <button ion-button  block color="positive"
+                on-click="addAddress()">
+            {{'ADD_ADDRESS' | translate}}
+        </button>
+    </ion-toolbar>
+</ion-footer>
