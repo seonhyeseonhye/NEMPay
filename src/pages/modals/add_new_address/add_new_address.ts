@@ -4,12 +4,12 @@ import {BarcodeScanner} from '@ionic-native/barcode-scanner';
 import {NavController, NavParams, ViewController} from 'ionic-angular';
 import {TranslateService} from '@ngx-translate/core';
 
-import {NemProvider} from '../../providers/nem/nem.provider';
-import {ConfigProvider} from '../../providers/config/config.provider';
-import {AlertProvider} from '../../providers/alert/alert.provider';
-import {AddressBookProvider} from '../../providers/address_book/address_book.provider';
+import {NemProvider} from '../../../providers/nem/nem.provider';
+import {ConfigProvider} from '../../../providers/config/config.provider';
+import {AlertProvider} from '../../../providers/alert/alert.provider';
+import {AddressBookProvider} from '../../../providers/address_book/address_book.provider';
 
-import {AddressBookPage} from '../address_book/address_book';
+import {AddressBookPage} from '../../address_book/address_book';
 
 @Component({
     selector: 'page-add_new_address',
@@ -28,6 +28,7 @@ export class AddNewAddressPage {
     /**
      * Moves to transfer, by default with mosaic selected
      */
+
     addAddressToBook(){
         if(this.nem.isFromNetwork(this.address, this.config.defaultNetwork())){
             this.addressBook.addAddress(this.account, this.name, this.address).then(_=>{

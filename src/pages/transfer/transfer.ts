@@ -1,5 +1,5 @@
 import {Component} from '@angular/core';
-import {NavController, NavParams, AlertController, LoadingController} from 'ionic-angular';
+import {NavController, NavParams, AlertController, LoadingController, ModalController} from 'ionic-angular';
 import {Keyboard} from '@ionic-native/keyboard';
 import {TranslateService} from '@ngx-translate/core';
 
@@ -11,6 +11,7 @@ import {ToastProvider} from '../../providers/toast/toast.provider';
 
 import {BalancePage} from '../balance/balance';
 import {LoginPage} from '../login/login';
+import {SelectRecipientFromAddressBookPage} from '../../pages/modals/select_recipient_from_address_book/select_recipient_from_address_book';
 
 @Component({
     selector: 'page-transfer',
@@ -26,7 +27,7 @@ export class TransferPage {
     selectedWallet: any;
     selectedMosaicDefinitionMetaDataPair: any;
 
-    constructor(public navCtrl: NavController, private navParams: NavParams, private nem: NemProvider, private alert: AlertProvider, private toast: ToastProvider, private barcodeScanner: BarcodeScanner, private alertCtrl: AlertController, private loading: LoadingController, private keyboard: Keyboard, private config: ConfigProvider, public translate: TranslateService) {
+    constructor(public navCtrl: NavController, private navParams: NavParams, private nem: NemProvider, private alert: AlertProvider, private toast: ToastProvider, private barcodeScanner: BarcodeScanner, private alertCtrl: AlertController, private loading: LoadingController, private keyboard: Keyboard, private config: ConfigProvider, public translate: TranslateService, private modalCtrl: ModalController) {
 
         this.formData = {};
         this.amount = 0;
@@ -314,6 +315,21 @@ export class TransferPage {
         else {
             this._updateFees();
         }
+    }
+
+    /**
+     * Open modal from address book
+     */
+
+    public importAddressFromAddressBook (){
+        let modal = this.modalCtrl.create(SelectRecipientFromAddressBookPage);
+
+        modal.onDidDismiss(data => {
+            this.formData.rawRecipientData = data;
+        });
+
+        modal.present();
+
     }
 
     /**

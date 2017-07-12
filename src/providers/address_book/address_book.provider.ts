@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import { SQLite, SQLiteObject } from '@ionic-native/sqlite';
-import CryptoJS from 'crypto-js';
+import {Platform} from 'ionic-angular';
 
 // import { Http } from '@angular/http';
 // import 'rxjs/add/operator/map';
@@ -15,13 +15,17 @@ import CryptoJS from 'crypto-js';
 export class AddressBookProvider {
     private database: SQLiteObject;
 
-    constructor(private sqlite: SQLite) {
-        this.sqlite.create({
-            name: 'data.db',
-            location: 'default'
-        }).then((db: SQLiteObject) => {
-            this.database = db;
-        });
+    constructor(private sqlite: SQLite, private platform: Platform) {
+
+        if (platform.is('cordova')) {
+
+            this.sqlite.create({
+                name: 'data.db',
+                location: 'default'
+            }).then((db: SQLiteObject) => {
+                this.database = db;
+            });
+        };
     }
 
     /**

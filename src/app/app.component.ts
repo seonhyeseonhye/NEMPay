@@ -12,6 +12,7 @@ import {TransactionsPage} from '../pages/transactions/transactions';
 import {BalancePage} from '../pages/balance/balance';
 import {LoginPage} from '../pages/login/login';
 import {Network} from '@ionic-native/network';
+import {AddressBookPage} from "../pages/address_book/address_book";
 
 
 @Component({
@@ -23,21 +24,22 @@ export class MyApp {
 
     constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen, network: Network, alertCtrl: AlertController, private translateService: TranslateService, private globalization: Globalization, private sqlite: SQLite) {
         platform.ready().then(() => {
+            if (platform.is('cordova')) {
 
-            //Open Address Book database
-            this.sqlite.create({
-                name: 'data.db',
-                location: 'default'
-            }).then((db: SQLiteObject) => {
-                db.executeSql("CREATE TABLE IF NOT EXISTS address_book (id INTEGER PRIMARY KEY AUTOINCREMENT, account TEXT, name TEXT, address TEXT)", {}).then((data) => {
-                    console.log("TABLE CREATED: ", data);
+                //Open Address Book database
+                this.sqlite.create({
+                    name: 'data.db',
+                    location: 'default'
+                }).then((db: SQLiteObject) => {
+                    db.executeSql("CREATE TABLE IF NOT EXISTS address_book (id INTEGER PRIMARY KEY AUTOINCREMENT, account TEXT, name TEXT, address TEXT)", {}).then((data) => {
+                        console.log("TABLE CREATED: ", data);
+                    }, (error) => {
+                        console.error("Unable to execute sql", error);
+                    })
                 }, (error) => {
-                    console.error("Unable to execute sql", error);
-                })
-            }, (error) => {
-                console.error("Unable to open database", error);
-            });
-
+                    console.error("Unable to open database", error);
+                });
+            }
             //Show alert in case there is no internet
 
             let alert = alertCtrl.create({
@@ -91,5 +93,10 @@ export class MyApp {
     goToTransactions(params) {
         if (!params) params = {};
         this.navCtrl.setRoot(TransactionsPage);
+    }
+
+    goToAddressBook(params) {
+        if (!params) params = {};
+        this.navCtrl.setRoot(AddressBookPage);
     }
 }

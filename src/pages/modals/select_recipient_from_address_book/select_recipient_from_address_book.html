@@ -12,7 +12,7 @@
 </ion-header>
 
 <ion-content radio-group id="select-recipient" [(ngModel)]="formData.rawRecipient">
-    <ion-searchbar (ionInput)="getStoredAddresses($event)"></ion-searchbar>
+    <ion-searchbar (ionInput)="filterAddresses($event)"></ion-searchbar>
     <ion-list>
         <ion-item *ngFor="let storedAddress of storedAddresses">
             <ion-label>

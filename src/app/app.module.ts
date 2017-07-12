@@ -15,6 +15,7 @@ import {BarcodeScanner} from '@ionic-native/barcode-scanner';
 import {TranslateModule, TranslateLoader} from '@ngx-translate/core';
 import {TranslateHttpLoader} from '@ngx-translate/http-loader';
 import { Globalization } from '@ionic-native/globalization';
+import { SQLite, SQLiteObject } from '@ionic-native/sqlite';
 
 import {AlertProvider} from '../providers/alert/alert.provider';
 import {ConfigProvider} from '../providers/config/config.provider';
@@ -41,7 +42,8 @@ import {SignupPage} from '../pages/signup/signup';
 import {SignupSimpleWalletPage} from '../pages/signup_simplewallet/signup';
 import {SignupPrivateKeyPage} from '../pages/signup_privatekey/signup';
 import {AddressBookPage} from '../pages/address_book/address_book';
-import {AddNewAddressPage} from '../pages/address_book/add_new_address';
+import {AddNewAddressPage} from '../pages/modals/add_new_address/add_new_address';
+import {SelectRecipientFromAddressBookPage} from '../pages/modals/select_recipient_from_address_book/select_recipient_from_address_book';
 
 export function createTranslateLoader(http: Http) {
     return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -61,6 +63,9 @@ export function createTranslateLoader(http: Http) {
         TransactionsConfirmedPage,
         TransactionsUnconfirmedPage,
         AddressBookPage,
+        AddNewAddressPage,
+        SelectRecipientFromAddressBookPage,
+
         DivideByExponentialBaseTenPipe,
         HexMessageToStringPipe,
         PubToAddressPipe,
@@ -98,7 +103,8 @@ export function createTranslateLoader(http: Http) {
         SignupSimpleWalletPage,
         SignupPrivateKeyPage,
         AddressBookPage,
-        AddNewAddressPage
+        AddNewAddressPage,
+        SelectRecipientFromAddressBookPage
     ],
     providers: [
         StatusBar,
@@ -110,6 +116,7 @@ export function createTranslateLoader(http: Http) {
         Network,
         BarcodeScanner,
         Globalization,
+        SQLite,
         NemProvider,
         ConfigProvider,
         AlertProvider,

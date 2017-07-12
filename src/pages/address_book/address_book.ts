@@ -10,7 +10,7 @@ import {NemProvider} from '../../providers/nem/nem.provider';
 import {AddressBookProvider} from '../../providers/address_book/address_book.provider';
 
 import {LoginPage} from '../login/login';
-import {AddNewAddressPage} from '../address_book/add_new_address';
+import {AddNewAddressPage} from '../modals/add_new_address/add_new_address';
 
 
 @Component({
@@ -88,12 +88,11 @@ export class AddressBookPage {
     /**
      * Moves to add New Address
      */
-    goToAddNewAddress(){
+    public goToAddNewAddress(){
         let modal = this.modalCtrl.create(AddNewAddressPage, {
             account: this.account,
         });
         modal.present();
-
     }
 
 }
