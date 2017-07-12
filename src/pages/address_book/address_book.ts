@@ -67,6 +67,23 @@ export class AddressBookPage {
 
     }
 
+    /**
+     *  Filters shown addresses
+     * @param ev event
+     */
+    public filterAddresses(event: any){
+        this._getStoredAddresses(this.account).then(data => {
+            let val = event.target.value;
+            if (val && val.trim() != '') {
+                this.storedAddresses = data.filter((item) => {
+                    return (item.name.toLowerCase().indexOf(val.toLowerCase()) > -1);
+                })
+            }
+
+        })
+
+    }
+
 
     /**
      * Moves to add New Address
